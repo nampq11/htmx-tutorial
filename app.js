@@ -33,6 +33,14 @@ app.get('/books/:id', (req, res) => {
     res.send(createBookTeamplate(book));
 });
 
+app.delete('/books/:id', (req, res) => {
+    const { id } = req.params;
+    const idx = BOOKS_DATA.findIndex(book => book.id === id);
+    BOOKS_DATA.splice(idx, 1);
+
+    res.send();
+});
+
 app.listen(3000, () => {
     console.log("App listening on port 3000");
 });
