@@ -14,7 +14,7 @@ const createHomepageTemplate = () => /*html*/`
       <main>
         <div class="book-list">
           <!-- book list here later -->
-           <button hx-get="/books" hx-target=".book-list">Show books</button>
+           <button hx-get="/books" hx-target=".book-list" hx-trigger="dblclick">Show books</button>
            <!-- <button hx-get="/books" hx-swap="beforeend", hx-target=".book-list"></button> -->
            <!-- <button hx-get="/books" hx-swap="afterend", hx-target=".book-list"></button> -->
            <!-- <button hx-get="/books" hx-swap="outerHTML", hx-target=".book-list"></button> -->
@@ -23,26 +23,27 @@ const createHomepageTemplate = () => /*html*/`
 
         <div class="add-book-form">
           <h2>What do you want to read?</h2>
-          <form>
+          <form
+            hx-post="/books"
+            hx-target=".book-list ul"
+            hx-swap="beforeend"
+            hx-on::after-request="document.querySelector('form').reset()"
+          >
             <input 
               id = "title"
               type="text"
               name="title"
               placeholder="title"
+              required
             />
             <input 
               id = "author"
               type="text"
               name="author"
               placeholder="author"
+              required
             />
-            <button 
-              hx-post="./books"
-              hx-target=".book-list ul" 
-              hx-swap="beforeend"
-              hx-on:click="Console.log('new book added', event)"
-              hx-on::after-request="document.querySelector('form').reset()"
-              >Add</button>
+            <button>Add</button>
           </form>
           <!-- form template here later -->
         </div>
