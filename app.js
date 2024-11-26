@@ -3,6 +3,7 @@ import createHomePageTeamplate from "./views/index.js";
 import BOOKS_DATA from "./data/data.js";
 import CreateListTeamplate from "./views/list.js";
 import createBookTeamplate from "./views/book.js";
+import createEditFormTeamplate from "./views/edit.js";
 
 const app = express();
 app.use(express.urlencoded({extended: false}));
@@ -39,6 +40,12 @@ app.delete('/books/:id', (req, res) => {
     BOOKS_DATA.splice(idx, 1);
 
     res.send();
+});
+
+app.get("/books/edit/:id", (req, res) => {
+    const book = BOOKS_DATA.find(book => book.id === req.params.id);
+
+    res.send(createEditFormTeamplate(book));
 });
 
 app.listen(3000, () => {
