@@ -48,6 +48,18 @@ app.get("/books/edit/:id", (req, res) => {
     res.send(createEditFormTeamplate(book));
 });
 
+app.put("/books/:id", (req, res) => {
+    const { title, author } = req.body;
+    const { id } = req.params;
+
+    const newBook = { id, title, author };
+
+    const idx = BOOKS_DATA.findIndex(book => book.id === id);
+    BOOKS_DATA[idx] = newBook;
+
+    res.send(createBookTeamplate(newBook));
+})
+
 app.listen(3000, () => {
     console.log("App listening on port 3000");
 });
