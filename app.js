@@ -15,7 +15,7 @@ app.get("/", (req, res) => {
 });
 
 app.get('/books', (req, res) => {
-    res.send(CreateListTeamplate());
+    res.send(CreateListTeamplate(BOOKS_DATA));
 })
 
 app.post('/books', (req, res) => {
@@ -50,7 +50,7 @@ app.get("/books/edit/:id", (req, res) => {
 
 app.put("/books/:id", (req, res) => {
     const { title, author } = req.body;
-    const { id } = req.params;
+    const { id } = rGreateq.params;
 
     const newBook = { id, title, author };
 
@@ -59,6 +59,14 @@ app.put("/books/:id", (req, res) => {
 
     res.send(createBookTeamplate(newBook));
 })
+
+app.post('/books/search', (req, res) => {
+    const text = req.body.search.toLowerCase();
+
+    const books = BOOKS_DATA.filter(book => book.title.toLowerCase().includes(text));
+
+    res.send(CreateListTeamplate(books));
+});
 
 app.listen(3000, () => {
     console.log("App listening on port 3000");

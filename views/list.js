@@ -1,9 +1,9 @@
 import BOOKS_DATA from "../data/data.js";
 import createBookTeamplate from "./book.js";
 
-const CreateListTeamplate = () => /*html*/`
+const CreateListTeamplate = (books) => /*html*/`
     <ul>
-        ${BOOKS_DATA.map((book) => createBookTeamplate(book)).join('')}
+        ${books.map((book) => createBookTeamplate(book)).join('')}
     </ul>
 `;
 
